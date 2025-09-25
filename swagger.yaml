@@ -1,0 +1,189 @@
+# swagger.yaml
+openapi: 3.0.0
+info:
+  title: API de Gestión de Repuestos Automotrices
+  version: 1.0.0
+  description: Una API CRUD simple para gestionar repuestos de vehículos, con funcionalidades de análisis de datos.
+
+servers:
+  - url: http://localhost:3000/api
+    description: Servidor de desarrollo
+
+tags:
+  - name: Repuestos
+    description: Operaciones de gestión de repuestos y análisis de inventario.
+
+paths:
+  /repuestos:
+    get:
+      tags:
+        - Repuestos
+      summary: Obtener todos los repuestos
+      description: Recupera una lista completa de todos los repuestos en la base de datos.
+      responses:
+        '200':
+          description: Lista de repuestos recuperada con éxito.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Repuesto'
+    post:
+      tags:
+        - Repuestos
+      summary: Crear un nuevo repuesto
+      description: Agrega un nuevo repuesto a la base de datos.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Repuesto'
+      responses:
+        '201':
+          description: Repuesto creado con éxito.
+        '400':
+          description: Datos de entrada inválidos.
+
+  /repuestos/{id}:
+    get:
+      tags:
+        - Repuestos
+      summary: Obtener un repuesto por ID
+      description: Recupera un solo repuesto usando su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID del repuesto a recuperar
+      responses:
+        '200':
+          description: Repuesto recuperado con éxito.
+        '404':
+          description: Repuesto no encontrado.
+    put:
+      tags:
+        - Repuestos
+      summary: Actualizar un repuesto
+      description: Actualiza los detalles de un repuesto existente.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Repuesto'
+      responses:
+        '200':
+          description: Repuesto actualizado con éxito.
+        '404':
+          description: Repuesto no encontrado.
+    delete:
+      tags:
+        - Repuestos
+      summary: Eliminar un repuesto
+      description: Elimina un repuesto de la base de datos.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Repuesto eliminado con éxito.
+        '404':
+          description: Repuesto no encontrado.
+
+  /repuestos/por-marca:
+    get:
+      tags:
+        - Repuestos
+      summary: Obtener repuestos agrupados por marca
+      description: Recupera el conteo de repuestos para cada marca.
+      responses:
+        '200':
+          description: Conteo de repuestos por marca recuperado con éxito.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      description: Nombre de la marca.
+                    totalRepuestos:
+                      type: integer
+                      description: Cantidad total de repuestos para esa marca.
+
+  /repuestos/valor-total:
+    get:
+      tags:
+        - Repuestos
+      summary: Calcular el valor total del inventario
+      description: Calcula el valor monetario total de todos los repuestos en stock.
+      responses:
+        '200':
+          description: Valor total del inventario recuperado con éxito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valorTotalInventario:
+                    type: number
+                    format: float
+                    description: El valor total del inventario.
+
+components:
+  schemas:
+    Repuesto:
+      type: object
+      required:
+        - nombre
+        - marca
+        - modelo_coche
+        - numero_pieza
+        - precio
+        - stock
+      properties:
+        _id:
+          type: string
+          description: El ID autogenerado por MongoDB.
+        nombre:
+          type: string
+          description: Nombre del repuesto.
+        marca:
+          type: string
+          description: Marca del repuesto.
+        modelo_coche:
+          type: string
+          description: Modelo del coche al que pertenece el repuesto.
+        numero_pieza:
+          type: string
+          description: Número de pieza del fabricante.
+        precio:
+          type: number
+          format: float
+          description: Precio del repuesto.
+        stock:
+          type: integer
+          description: Cantidad de repuestos en stock.
+        createdAt:
+          type: string
+          format: date-time
+          description: Fecha de creación.
+        updatedAt:
+          type: string
+          format: date-time
+          description: Fecha de última actualización.
