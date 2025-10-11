@@ -2,6 +2,11 @@
 const mongoose = require('mongoose');
 
 const repuestoSchema = new mongoose.Schema({
+  nro_serie: {
+    type: Number,
+    required: true,
+    unique:true
+  },
   nombre: {
     type: String,
     required: true
@@ -16,8 +21,7 @@ const repuestoSchema = new mongoose.Schema({
   },
   numero_pieza: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   precio: {
     type: Number,
