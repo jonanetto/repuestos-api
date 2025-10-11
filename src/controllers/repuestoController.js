@@ -1,7 +1,6 @@
 // src/controllers/repuestoController.js
 const Repuesto = require('../models/Repuesto');
 
-
 exports.getRepuestos = async (req, res) => {
   try {
     const repuestos = await Repuesto.find();
@@ -11,8 +10,10 @@ exports.getRepuestos = async (req, res) => {
   }
 };
 
-
 exports.createRepuesto = async (req, res) => {
+  id
+  buscamo 
+  
   const repuesto = new Repuesto(req.body);
   try {
     const newRepuesto = await repuesto.save();
@@ -21,7 +22,6 @@ exports.createRepuesto = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
-
 
 exports.getRepuestoById = async (req, res) => {
   try {
@@ -32,7 +32,6 @@ exports.getRepuestoById = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
 
 exports.updateRepuesto = async (req, res) => {
   try {
@@ -53,7 +52,6 @@ exports.deleteRepuesto = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
 
 exports.getMarcaRepuesto = async (req, res) => {
   try {

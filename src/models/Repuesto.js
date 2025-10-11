@@ -5,7 +5,7 @@ const repuestoSchema = new mongoose.Schema({
   nro_serie: {
     type: Number,
     required: true,
-    unique:true
+    unique: true
   },
   nombre: {
     type: String,
