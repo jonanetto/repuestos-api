@@ -11,9 +11,6 @@ exports.getRepuestos = async (req, res) => {
 };
 
 exports.createRepuesto = async (req, res) => {
-  id
-  buscamo 
-  
   const repuesto = new Repuesto(req.body);
   try {
     const newRepuesto = await repuesto.save();

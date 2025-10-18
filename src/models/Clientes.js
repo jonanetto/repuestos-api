@@ -4,7 +4,8 @@ const clienteSchema = new mongoose.Schema({
     id: {
         type: Number,
         required: true,
-        unique: true
+        unique: true,
+        index:true
     },
     nombre: {
         type: String,
@@ -22,7 +23,7 @@ const clienteSchema = new mongoose.Schema({
         },
         required: true
     }
-}, { strict: false });
+}, { strict: false, _id: false });
 
 const Cliente = mongoose.model('Cliente', clienteSchema);
 

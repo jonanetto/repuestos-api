@@ -2,10 +2,9 @@ const mongoose = require('mongoose');
 
 const ordenSchema = new mongoose.Schema({
     id_cliente: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Number, //TO-DO a testear comportamiento y si está correcta la referencia.
         ref: 'Cliente',
-        required: true,
-        unique: false
+        required: true
     },
     items: {
         type: [
