@@ -33,7 +33,7 @@ const repuestoSchema = new mongoose.Schema({
     default: 0
   }
 
-}, { strict: false, _id: false });
+}, { strict: false});
 
 const Repuesto = mongoose.model('Repuesto', repuestoSchema);
 

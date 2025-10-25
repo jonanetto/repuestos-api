@@ -67,4 +67,17 @@ exports.getMarcaRepuesto = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
+
+};
+
+exports.getRepuestosCompatiblesByModelo = async (req, res) => {
+  try {
+    // Agrega esta línea temporalmente
+    console.log("Modelo recibido en req.params:", req.params.modelo_coche); 
+    console.log("Modelo recibido en req.params:", req); 
+    const repuestos = await Repuesto.find({ modelo_coche: req.params.modelo });
+    res.status(200).json(repuestos);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
