@@ -1,7 +1,6 @@
 // src/controllers/repuestoController.js
 const Repuesto = require('../models/Repuesto');
 
-
 exports.getRepuestos = async (req, res) => {
   try {
     const repuestos = await Repuesto.find();
@@ -10,7 +9,6 @@ exports.getRepuestos = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
 
 exports.createRepuesto = async (req, res) => {
   const repuesto = new Repuesto(req.body);
@@ -22,7 +20,6 @@ exports.createRepuesto = async (req, res) => {
   }
 };
 
-
 exports.getRepuestoById = async (req, res) => {
   try {
     const repuesto = await Repuesto.findById(req.params.id);
@@ -32,7 +29,6 @@ exports.getRepuestoById = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
 
 exports.updateRepuesto = async (req, res) => {
   try {
@@ -54,7 +50,6 @@ exports.deleteRepuesto = async (req, res) => {
   }
 };
 
-
 exports.getMarcaRepuesto = async (req, res) => {
   try {
     const repuestos = await Repuesto.aggregate([
@@ -68,6 +63,19 @@ exports.getMarcaRepuesto = async (req, res) => {
         $sort: { totalRepuestos: -1 },
       },
     ]);
+    res.status(200).json(repuestos);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+
+};
+
+exports.getRepuestosCompatiblesByModelo = async (req, res) => {
+  try {
+    // Agrega esta línea temporalmente
+    console.log("Modelo recibido en req.params:", req.params.modelo_coche); 
+    console.log("Modelo recibido en req.params:", req); 
+    const repuestos = await Repuesto.find({ modelo_coche: req.params.modelo });
     res.status(200).json(repuestos);
   } catch (err) {
     res.status(500).json({ message: err.message });

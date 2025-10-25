@@ -10,6 +10,7 @@ router.post('/', repuestoController.createRepuesto);
 router.get('/:id', repuestoController.getRepuestoById);
 router.put('/:id', repuestoController.updateRepuesto);
 router.delete('/:id', repuestoController.deleteRepuesto);
+router.get('/compatibles/:modelo', repuestoController.getRepuestosCompatiblesByModelo);
 
 
 module.exports = router;

@@ -145,6 +145,30 @@ paths:
                     format: float
                     description: El valor total del inventario.
 
+  /repuestos/compatibles/{modelo_coche}:
+    get:
+      tags:
+        - Repuestos
+      summary: Obtener repuestos compatibles para el modelo
+      description: Obtiene los repuestos compatibles para el modelo
+      parameters:
+        - name: modelo_coche
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Repuestos compatibles recuperados con éxito.
+          content:
+            application/json:
+              schema:
+                type: array
+                properties:
+                  repuestosCompatibles:
+                    type: string
+                    description: Repuestos compatibles obtenidos.
+
 components:
   schemas:
     Repuesto:

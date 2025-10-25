@@ -5,7 +5,7 @@ const repuestoSchema = new mongoose.Schema({
   nro_serie: {
     type: Number,
     required: true,
-    unique:true
+    unique: true
   },
   nombre: {
     type: String,
@@ -33,7 +33,7 @@ const repuestoSchema = new mongoose.Schema({
     default: 0
   }
 
-}, { strict: false });
+}, { strict: false});
 
 const Repuesto = mongoose.model('Repuesto', repuestoSchema);
 
