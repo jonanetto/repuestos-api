@@ -126,25 +126,6 @@ paths:
                       type: integer
                       description: Cantidad total de repuestos para esa marca.
 
-  /repuestos/valor-total:
-    get:
-      tags:
-        - Repuestos
-      summary: Calcular el valor total del inventario
-      description: Calcula el valor monetario total de todos los repuestos en stock.
-      responses:
-        '200':
-          description: Valor total del inventario recuperado con éxito.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  valorTotalInventario:
-                    type: number
-                    format: float
-                    description: El valor total del inventario.
-
   /repuestos/compatibles/{modelo_coche}:
     get:
       tags:
