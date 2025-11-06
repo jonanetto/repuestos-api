@@ -4,7 +4,7 @@ const router = express.Router();
 const repuestoController = require('../controllers/repuestoController');
 
 // Rutas del CRUD
-router.get('/por-marca', repuestoController.getMarcaRepuesto);
+router.get('/vendidosPorMarca', repuestoController.getRepuestosVendidosPorMarca);
 router.get('/', repuestoController.getRepuestos);
 router.post('/', repuestoController.createRepuesto);
 router.get('/:id', repuestoController.getRepuestoById);

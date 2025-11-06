@@ -21,14 +21,14 @@ paths:
       summary: Obtener todos los repuestos
       description: Recupera una lista completa de todos los repuestos en la base de datos.
       responses:
-        '200':
+        "200":
           description: Lista de repuestos recuperada con éxito.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Repuesto'
+                  $ref: "#/components/schemas/Repuesto"
     post:
       tags:
         - Repuestos
@@ -39,11 +39,11 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Repuesto'
+              $ref: "#/components/schemas/Repuesto"
       responses:
-        '201':
+        "201":
           description: Repuesto creado con éxito.
-        '400':
+        "400":
           description: Datos de entrada inválidos.
 
   /repuestos/{id}:
@@ -60,9 +60,9 @@ paths:
             type: string
           description: ID del repuesto a recuperar
       responses:
-        '200':
+        "200":
           description: Repuesto recuperado con éxito.
-        '404':
+        "404":
           description: Repuesto no encontrado.
     put:
       tags:
@@ -80,11 +80,11 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Repuesto'
+              $ref: "#/components/schemas/Repuesto"
       responses:
-        '200':
+        "200":
           description: Repuesto actualizado con éxito.
-        '404':
+        "404":
           description: Repuesto no encontrado.
     delete:
       tags:
@@ -98,20 +98,20 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Repuesto eliminado con éxito.
-        '404':
+        "404":
           description: Repuesto no encontrado.
 
-  /repuestos/por-marca:
+  /repuestos/vendidosPorMarca:
     get:
       tags:
         - Repuestos
-      summary: Obtener repuestos agrupados por marca
-      description: Recupera el conteo de repuestos para cada marca.
+      summary: Obtener total de unidades vendidas agrupados por marca.
+      description: Recupera el total de unidades vendidas de repuestos para cada marca. Se listan únicamente las marcas con repuestos vendidos.
       responses:
-        '200':
-          description: Conteo de repuestos por marca recuperado con éxito.
+        "200":
+          description: Total de unidades vendidas agrupados por marca.
           content:
             application/json:
               schema:
@@ -119,12 +119,12 @@ paths:
                 items:
                   type: object
                   properties:
-                    _id:
-                      type: string
-                      description: Nombre de la marca.
-                    totalRepuestos:
+                    totalItemsVendidos:
                       type: integer
                       description: Cantidad total de repuestos para esa marca.
+                    marca:
+                      type: string
+                      description: Nombre de la marca.
 
   /repuestos/compatibles/{modelo_coche}:
     get:
@@ -139,7 +139,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Repuestos compatibles recuperados con éxito.
           content:
             application/json:

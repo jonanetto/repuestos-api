@@ -51,9 +51,7 @@ exports.deleteRepuesto = async (req, res) => {
   }
 };
 
-//TODO: Cambiarle el nombre a la función y documentación de swagger, ahora es getRepuestosVendidosPorMarca. Lo que hace es agrupar por marca y sumar la cantidad vendida de las órdenes.
-// Falta punto 6 y editar caso de uso 3 con el marcador correspondientes (consulta comun).
-exports.getMarcaRepuesto = async (req, res) => {
+exports.getRepuestosVendidosPorMarca = async (req, res) => {
   try {
     const pipeline = [
       {
@@ -79,6 +77,7 @@ exports.getMarcaRepuesto = async (req, res) => {
           totalItemsVendidos: { $sum: '$ventas_ordenes.items.cantidad' } 
         }
       },
+      {$project: { marca: '$_id', _id: 0, totalItemsVendidos: 1}},
       {
         $sort: { totalItemsVendidos: -1 }
       }
