@@ -1,4 +1,5 @@
 // src/controllers/repuestoController.js
+const Orden = require('../models/Orden');
 const Repuesto = require('../models/Repuesto');
 
 exports.getRepuestos = async (req, res) => {
@@ -50,31 +51,49 @@ exports.deleteRepuesto = async (req, res) => {
   }
 };
 
-exports.getMarcaRepuesto = async (req, res) => {
+exports.getRepuestosVendidosPorMarca = async (req, res) => {
   try {
-    const repuestos = await Repuesto.aggregate([
+    const pipeline = [
+      {
+        $lookup: {
+          from: 'ordenes', 
+          localField: 'nro_serie', 
+          foreignField: 'items.nro_serie', 
+          as: 'ventas_ordenes' 
+        }
+      },
+      { $unwind: '$ventas_ordenes' },
+      { $unwind: '$ventas_ordenes.items' },
+      {
+        $match: {
+          $expr: {
+            $eq: ['$nro_serie', '$ventas_ordenes.items.nro_serie']
+          }
+        }
+      },
       {
         $group: {
-          _id: "$marca",
-          totalRepuestos: { $sum: 1 }, 
-        },
+          _id: '$marca', 
+          totalItemsVendidos: { $sum: '$ventas_ordenes.items.cantidad' } 
+        }
       },
+      {$project: { marca: '$_id', _id: 0, totalItemsVendidos: 1}},
       {
-        $sort: { totalRepuestos: -1 },
-      },
-    ]);
-    res.status(200).json(repuestos);
+        $sort: { totalItemsVendidos: -1 }
+      }
+    ];
+
+    const ventasPorMarca = await Repuesto.aggregate(pipeline);
+    res.status(200).json(ventasPorMarca);
+
   } catch (err) {
+    console.error("Error en getVentasPorMarcaDesdeRepuestos:", err);
     res.status(500).json({ message: err.message });
   }
-
 };
 
 exports.getRepuestosCompatiblesByModelo = async (req, res) => {
   try {
-    // Agrega esta línea temporalmente
-    console.log("Modelo recibido en req.params:", req.params.modelo_coche); 
-    console.log("Modelo recibido en req.params:", req); 
     const repuestos = await Repuesto.find({ modelo_coche: req.params.modelo });
     res.status(200).json(repuestos);
   } catch (err) {
